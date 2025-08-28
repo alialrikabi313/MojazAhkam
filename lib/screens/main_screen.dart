@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mojazahkam/screens/contactUs.dart';
 import 'package:mojazahkam/screens/favorites_screen.dart';
+import 'package:mojazahkam/screens/manask.dart';
 import 'package:mojazahkam/screens/muamalat_screen.dart';
-import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'chapter_screen.dart';
 import 'fontSetting.dart';
 import 'ibadat_Screen.dart';
 import 'search_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MainScreen extends StatefulWidget {
   final bool isDarkMode;
@@ -29,13 +30,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color.fromRGBO(103, 182, 187, 1),
-            title: Image.asset('assets/1722218985400.png'),
+            backgroundColor: Color.fromRGBO(255, 242, 223, 1),
+            title: Image.asset('assets/٢٠٢٥٠١١١_٠٠٢٥١٥.png'),
             actions: [
               IconButton(
                 icon: Icon(Icons.search),
@@ -47,12 +48,13 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ],
             bottom: TabBar(
-              labelColor: Colors.white, // لون النصوص المحددة
-              unselectedLabelColor: Colors.white, // لون النصوص غير المحددة
+              labelColor:  Color.fromRGBO(121, 95, 70, 1), // لون النصوص المحددة
+              unselectedLabelColor: Color.fromRGBO(121, 95, 70, 1), // لون النصوص غير المحددة
               tabs: [
                 Tab(text: 'التقليد'),
                 Tab(text: 'العبادات'),
                 Tab(text: 'المعاملات'),
+                Tab(child: FittedBox(child: Text('موجز المناسك', ))),
               ],
             ),
             foregroundColor: Colors.white,
@@ -63,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
               children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.teal,
+                    color:  Color.fromRGBO(121, 95, 70, 1),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
 
                     Share.share(
                         '''
-                        السلام عليكم، يمكنكم تحميل تطبيق كتاب موجز الأحكام للسيد الخامنئي داك ظله، من إعداد السيد أبو تيسير الجابري، عبر الرابط التالي في سوق بلي:
+                        السلام عليكم، يمكنكم تحميل تطبيق كتاب موجز الأحكام للسيد الخامنئي دام ظله، من إعداد السيد كاظم الجابري، عبر الرابط التالي في سوق بلي:
                         
                         https://play.google.com/store/apps/details?id=com.alialrikabi313.mojazahkam''');
                   },
@@ -165,6 +167,8 @@ class _MainScreenState extends State<MainScreen> {
               ChapterScreen(),
               IbadatScreen(),
               MuamalatScreen(),
+              ManaskScreen()
+
             ],
           ),
         ),
@@ -190,7 +194,7 @@ class AboutApp extends StatelessWidget {
               )),
         ),
         body: Container(
-          color: Color.fromRGBO(0, 87, 94, 1),
+          color:  Color.fromRGBO(121, 95, 70, 1),
           padding: EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(

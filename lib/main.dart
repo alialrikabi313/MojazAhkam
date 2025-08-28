@@ -101,7 +101,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(Duration(milliseconds: 2500), () {
+    Timer(Duration(milliseconds: 1000), () {
       Get.off(MainScreen(
         isDarkMode: widget.isDarkMode,
         onThemeChanged: widget.toggleTheme,
@@ -114,7 +114,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: SafeArea(
         child: Image.asset(
-          "assets/splashicon.png",
+          "assets/splashicon.jpg",
           fit: BoxFit.fill,
           width: double.infinity,
           height: double.infinity,

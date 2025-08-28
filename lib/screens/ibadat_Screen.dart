@@ -58,7 +58,7 @@ class _IbadatScreenState extends State<IbadatScreen> with SingleTickerProviderSt
             final chapter = _chapters[index];
             return Card(
               margin: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-              color: Colors.teal,
+              color: Color.fromRGBO(121, 95, 70, 1),
               child: ListTile(
                 title: Text(
                   chapter.title,

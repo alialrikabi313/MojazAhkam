@@ -1,3 +1,21 @@
+// android/build.gradle  (Top-level)
+
+// لا حاجة للاستيرادات اليدوية إذا استخدمنا type matching مباشرة
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+/* ------------------------------------------------------------------ */
+/* 1) مستودعات عموميّة للإضافات (Gradle plugins)                       */
+/* ------------------------------------------------------------------ */
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* 2) مستودعات لجميع الموديولات (app + plugins)                       */
+/* ------------------------------------------------------------------ */
 allprojects {
     repositories {
         google()
@@ -5,14 +23,37 @@ allprojects {
     }
 }
 
+/* ------------------------------------------------------------------ */
+/* 3) مسار build موحَّد (اختياري لسهولة التنظيف)                      */
+/* ------------------------------------------------------------------ */
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
 
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+/* ------------------------------------------------------------------ */
+/* 4) توحيد هدف JVM = 17 لكل مهام Java وKotlin                        */
+/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* إجبار جميع الموديولات النهائيّة (app + plugins) على JVM 17        */
+/* ------------------------------------------------------------------ */
+subprojects { proj ->
+
+    afterEvaluate {
+
+        /* 1) إن كان الموديول Android (app أو library) */
+        if (proj.plugins.hasPlugin("com.android.application") ||
+                proj.plugins.hasPlugin("com.android.library")) {
+
+            proj.extensions.findByName("android")?.compileOptions {
+                sourceCompatibility JavaVersion.VERSION_17
+                targetCompatibility JavaVersion.VERSION_17
+            }
+        }
+
+        /* 2) إن وُجدت مهام Kotlin فاضبطها على 17 أيضاً */
+        proj.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions.jvmTarget = "17"
+        }
+    }
 }

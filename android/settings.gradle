@@ -1,14 +1,23 @@
+/***********************
+ * settings.gradle
+ * توافق Flutter 3.22+
+ * AGP 8.3.1 — Kotlin 1.9.23
+ ***********************/
+
 pluginManagement {
+    /** تحديد مسار SDK الخاص بفلتر */
     def flutterSdkPath = {
-        def properties = new Properties()
-        file("local.properties").withInputStream { properties.load(it) }
-        def flutterSdkPath = properties.getProperty("flutter.sdk")
-        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-        return flutterSdkPath
+        def props = new Properties()
+        file("local.properties").withInputStream { props.load(it) }
+        def path = props.getProperty("flutter.sdk")
+        assert path != null : "flutter.sdk not set in local.properties"
+        return path
     }()
 
+    /** تضمين أدوات Flutter لبناء Gradle */
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
+    /** مستودعات الإضافات */
     repositories {
         google()
         mavenCentral()
@@ -16,10 +25,17 @@ pluginManagement {
     }
 }
 
+/** الإضافات الرئيسة وتوافق الإصدارات */
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "7.3.0" apply false
-    id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+
+    /* Android Gradle Plugin (تطبيق ومكتبة) */
+    id "com.android.application" version "8.3.1" apply false
+    id "com.android.library"     version "8.3.1" apply false
+
+    /* Kotlin Android – متوافق مع AGP 8.x */
+    id "org.jetbrains.kotlin.android" version "1.9.23" apply false
 }
 
-include ":app"
+/* وحدات Gradle داخل المشروع */
+include(":app")
